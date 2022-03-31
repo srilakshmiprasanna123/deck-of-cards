@@ -30,7 +30,7 @@ public class DeckOfCards {
         System.out.println();
     }
 
-    public void numOfPlayers() {
+    public int numOfPlayers() {
         System.out.println("Enter the number of players,range must be from 2 to 4");
         int playerCount = scanner.nextInt();
         if (playerCount >= 2 && playerCount <= 4) {
@@ -47,6 +47,15 @@ public class DeckOfCards {
             this.numOfPlayers();
             scanner.close();
         }
+        return playerCount;
+    }
+
+    public void seqOfPlayer(int playerCount) {
+        System.out.println("\nSequence of cards are below : ");
+        for (int i = 0; i < playerCount; i++) {
+            Player p = playerList.get(i);
+            System.out.println("\nPlayer "+p.getPlayerNo()+"  " +p.getPlayerName() + " Getting card.............");
+        }
     }
     public static void main(String[] args) {
         System.out.println("Welcome to deck of cards simulation");
@@ -54,7 +63,8 @@ public class DeckOfCards {
         deckOfCards.getUniqueCards();
         System.out.println("Unique cards are");
         deckOfCards.printArray(deckOfCard);
-        deckOfCards.numOfPlayers();
+        deckOfCards.seqOfPlayer(deckOfCards.numOfPlayers());
         System.out.println(playerList);
+
     }
 }
