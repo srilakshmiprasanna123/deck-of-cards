@@ -11,6 +11,7 @@ public class DeckOfCards {
     public static String[] deckOfCard = new String[suit.length * rank.length];
     public static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Player> playerList = new ArrayList<>();
+    static String[][] playerCardStrings = new String[4][9];
 
 
     public void getUniqueCards() {
@@ -31,16 +32,17 @@ public class DeckOfCards {
         System.out.println();
     }
 
+
     public int numOfPlayers() {
         System.out.println("Enter the number of players,range must be from 2 to 4");
         int playerCount = scanner.nextInt();
         if (playerCount >= 2 && playerCount <= 4) {
 
-            for(int i =0;i<playerCount;i++){
-                System.out.println("Enter player "+(i+1)+" name");
+            for (int i = 0; i < playerCount; i++) {
+                System.out.println("Enter player " + (i + 1) + " name");
                 String name = scanner.next();
-                int playerNo = (i+1);
-                playerList.add(new Player(name,playerNo));
+                int playerNo = (i + 1);
+                playerList.add(new Player(name, playerNo));
             }
             System.out.println(playerCount + " players will play the game");
         } else {
@@ -51,11 +53,12 @@ public class DeckOfCards {
         return playerCount;
     }
 
+
     public void seqOfPlayer(int playerCount) {
         System.out.println("\nSequence of cards are below : ");
         for (int i = 0; i < playerCount; i++) {
             Player p = playerList.get(i);
-            System.out.println("\nPlayer "+p.getPlayerNo()+"  " +p.getPlayerName() + " Getting card.............");
+            System.out.println("\nPlayer " + p.getPlayerNo() + "  " + p.getPlayerName() + " Getting card.............");
         }
     }
 
@@ -69,13 +72,28 @@ public class DeckOfCards {
             deckOfCard[index] = temp;
         }
     }
+
+    public void cardDistribution(int playerCount) {
+        int index = 0;
+        for (int i = 0; i < playerCount; i++) {
+            for (int j = 0; j < playerCardStrings[i].length; j++) {
+                playerCardStrings[i][j] = deckOfCard[index];
+//                System.out.println(playerCardStrings[i][j]);
+                index++;
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Welcome to deck of cards simulation");
         DeckOfCards deckOfCards = new DeckOfCards();
         deckOfCards.getUniqueCards();
         System.out.println("Unique cards are");
         deckOfCards.printArray(deckOfCard);
-        deckOfCards.seqOfPlayer(deckOfCards.numOfPlayers());
+        deckOfCards.shuffleCards();
+        deckOfCards.printArray(deckOfCard);
+        deckOfCards.cardDistribution(deckOfCards.numOfPlayers());
         System.out.println(playerList);
 
     }
